@@ -93,6 +93,21 @@ app.delete('/delete/:ManagerId', (req, res) => {
     return res.status(200).json({ message: "Delete successful", result });
   });
 });
+//delete from import table
+
+
+
+app.delete('/deleteimp/:Funitureid', (req, res) => {
+  const { Funitureid } = req.params;
+  const sql = "DELETE FROM imports WHERE FunitureId = ?";
+  db.query(sql, [Funitureid], (err, result) => {
+    if (err) return res.status(400).json({ error: "Delete failed" });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Import fun not found" });
+    }
+    return res.status(200).json({ message: "Delete successful", result });
+  });
+});
 
 // ------------------------ Furniture Routes ------------------------
 
@@ -135,6 +150,19 @@ app.put('/updatefn/:Funitureid', (req, res) => {
     return res.status(200).json({ message: "Update successful", result });
   });
 });
+// Update for import table
+
+
+app.put('/updateimp/:Funitureid', (req, res) => {
+  const { Funitureid } = req.params;
+  const { importdate, quantity } = req.body;
+  const sql = "UPDATE manager SET importdate=?, quamntity=? WHERE Funitureid=?";
+  db.query(sql, [Funitureid, Importdate, quantity], (err, result) => {
+    if (err) return res.status(400).json({ error: "Update failed" });
+    return res.status(200).json({ message: "Update successful", result });
+  });
+});
+
 
 // Delete a furniture record
 app.delete('/dfun/:Funitureid', (req, res) => {

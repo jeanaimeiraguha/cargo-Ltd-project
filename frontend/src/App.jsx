@@ -6,12 +6,19 @@ import Sf from './Sf'
 import Insf from './Insf'
 import Updatefun from './Updatefun'
 import Select2 from './imports/Select2'
-import { BrowserRouter , Route, Routes } from 'react-router-dom'
+import { BrowserRouter , Route, Routes,Link } from 'react-router-dom'
 import Insert2 from './imports/Insert2'
 const App = () => {
   return (
     <div>
       <BrowserRouter>
+      <nav>
+      {/* <Link to='/'>  Managers</Link>
+        <Link to='/'>Imports</Link>
+        <Link to='/sf'>Funitures</Link>
+        <Link to='/'>Exports</Link> */}
+     
+      </nav>
       <Routes>
         //Route for the main page 
         <Route path='/' element={<Select />} />

@@ -19,10 +19,10 @@ const Select2 = () => {
   }, []);
 
   const handleDelete = (Funitureid) => {  
-    axios.delete(`http://localhost:3000/delete/${Funitureid}`)
+    axios.delete(`http://localhost:3000/deleteimp/${Funitureid}`)
       .then((res) => {
         alert("User deleted successfully");
-        navigate('/select'); // 
+        navigate('/selectimp'); // 
        
      //    setManager(mana.filter((data) => data.ManagerId !== ManagerId));
       })
@@ -41,7 +41,7 @@ const Select2 = () => {
             <th>Quantity</th>
             <th colSpan={2}>Operations</th>
           </tr>
-        </thead>
+        </thead>  
         <tbody>
           {imports.map((data) => (
             <tr key={data.Funitureid}>

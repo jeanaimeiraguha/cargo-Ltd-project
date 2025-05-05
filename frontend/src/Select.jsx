@@ -23,7 +23,7 @@ const Select = () => {
         alert("User deleted successfully");
         navigate('/select'); // 
         // Optionally, remove the deleted manager from the state to re-render
-        setManager(manager.filter((data) => data.ManagerId !== ManagerId));
+        // setManager(manager.filter((data) => data.ManagerId !== ManagerId));
       })
       .catch((err) => {
         alert("Delete Failed");
