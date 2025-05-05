@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams,useNavigate } from 'react-router-dom';
 
-const Update = () => {
+const Update2 = () => {
      const navigate = useNavigate(); 
-    const [username, setUsername] = useState("");
-    const [Password, setPassword] = useState(""); 
-    const { ManagerId } = useParams(); 
+//     const [Funitureid, setFunitureid] = useState("");
+    const [Importdate, setImportdate] = useState(""); 
+    const [quantity, setQuantity] = useState(""); 
+    const { Funitureid } = useParams(); 
 
     const handleUpdate = () => {
-        axios.put(`http://localhost:3000/update/${ManagerId}`, { username, Password }) // use capital P
+        axios.put(`http://localhost:3000/update/${Funitureid}`, { username, Password }) // use capital P
             .then((res) => {
                 alert("Record updated successfully");
-                navigate('/select'); 
+                navigate('/select2'); 
             })
             .catch((err) => {
                 alert("Update failed");
@@ -30,11 +31,12 @@ const Update = () => {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/select/${ManagerId}`)
+        axios.get(`http://localhost:3000/select/${Funitureid}`)
             .then((res) => {
                 
-                setUsername(res.data.username);
-                setPassword(res.data.Password);
+                setUsername(res.data.Funitureid);
+                setImportdate(res.data.importdate);
+                setQuantity(res.data.quantity);
             })
             .catch((err) => {
                 alert("Failed to fetch data");
@@ -44,30 +46,30 @@ const Update = () => {
 
     return (
         <div>
-            <h2>Update Manager</h2>
+            <h2>Updated Imports</h2>
             <form onSubmit={handleSubmit}>
                 <label>
-                    Username:
+                    Imported date
                     <input
                         type="text"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
+                        value={importdate}
+                        onChange={e => setImportdate(e.target.value)}
                     />
                 </label>
                 <br />
                 <label>
-                    Password:
+                  Quantity
                     <input
                         type="password"
-                        value={Password}
-                        onChange={e => setPassword(e.target.value)}
+                        value={quantity}
+                        onChange={e => setQuantity(e.target.value)}
                     />
                 </label>
                 <br />
-                <button type="submit">Update Manager</button>
+                <button type="submit">Update Imports</button>
             </form>
         </div>
     );
 };
 
-export default Update;
+export default Update2;

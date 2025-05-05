@@ -50,7 +50,7 @@ const Select2 = () => {
               <td>{data.quantity}</td>
 
               <td><button onClick={() => handleDelete(data.Funitureid)}>Delete</button></td>
-              <td><Link to={`/update/${data.Funitureid}`}>Update</Link></td>
+              <td><Link to={`/update2/${data.Funitureid}`}>Update</Link></td>
             </tr>
           ))}
         </tbody>
