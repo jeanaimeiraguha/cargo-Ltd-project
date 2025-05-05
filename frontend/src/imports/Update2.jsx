@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 
 const Update2 = () => {
-     const navigate = useNavigate(); 
+    //  const navigate = useNavigate(); 
 //     const [Funitureid, setFunitureid] = useState("");
     const [Importdate, setImportdate] = useState(""); 
     const [quantity, setQuantity] = useState(""); 
@@ -13,7 +13,7 @@ const Update2 = () => {
         axios.put(`http://localhost:3000/update/${Funitureid}`, { username, Password }) // use capital P
             .then((res) => {
                 alert("Record updated successfully");
-                navigate('/select2'); 
+                // navigate('/select2'); 
             })
             .catch((err) => {
                 alert("Update failed");
@@ -31,10 +31,10 @@ const Update2 = () => {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/select/${Funitureid}`)
+        axios.get(`http://localhost:3000/selectimp/${Funitureid}`)
             .then((res) => {
                 
-                setUsername(res.data.Funitureid);
+                setFuniture(res.data.Funitureid);
                 setImportdate(res.data.importdate);
                 setQuantity(res.data.quantity);
             })

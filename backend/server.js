@@ -129,6 +129,15 @@ app.get('/selectfun/:Funitureid', (req, res) => {
     return res.status(200).json(result);
   });
 });
+//select export table records
+app.get('/selectexpo', (req, res) => {
+
+  const sql = "SELECT * FROM exports ";
+  db.query(sql,  (err, result) => {
+    if (err) return res.status(500).json({ error: "Database query failed" });
+    return res.status(200).json(result);
+  });
+});
 
 // Insert a furniture record
 app.post('/insertfun', (req, res) => {
@@ -176,6 +185,22 @@ app.delete('/dfun/:Funitureid', (req, res) => {
     return res.status(200).json({ message: "Delete successful", result });
   });
 });
+//Delete from export table
+
+
+// Delete a furniture record
+app.delete('/dexpo/:Funitureid', (req, res) => {
+  const { Funitureid } = req.params;
+  const sql = "DELETE FROM exports WHERE Funitureid = ?";
+  db.query(sql, [Funitureid], (err, result) => {
+    if (err) return res.status(400).json({ error: "Delete failed" });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Furniture not found" });
+    }
+    return res.status(200).json({ message: "Delete successful", result });
+  });
+});
+
 
 // ------------------------ Server ------------------------
 

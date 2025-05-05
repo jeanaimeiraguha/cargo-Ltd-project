@@ -9,6 +9,8 @@ import Select2 from './imports/Select2'
 import { BrowserRouter , Route, Routes,Link } from 'react-router-dom'
 import Insert2 from './imports/Insert2'
 import Update2 from './imports/Update2'
+import Select3 from './Exports.jsx/Select3'
+import Notfound from './Notfound'
 const App = () => {
   return (
     <div>
@@ -42,6 +44,9 @@ const App = () => {
         <Route path='/select' element={<Select />} />
         //Route for update page imports
         <Route path='/updateimp/:Funitureid' element={<Update2 />} />
+        //Route for the select page exports
+        <Route path='/selectexpo' element={<Select3 />} />
+        <Route path='*' element={<Notfound/>}/>
         
       </Routes>
       </BrowserRouter>
