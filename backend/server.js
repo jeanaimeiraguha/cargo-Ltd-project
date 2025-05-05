@@ -32,6 +32,14 @@ app.get('/select', (req, res) => {
     return res.status(200).json(result);
   });
 });
+// Select all important data from the import table
+app.get('/selectimp', (req, res) => {
+  const sql = "SELECT * FROM imports";
+  db.query(sql, (err, result) => {
+    if (err) return res.status(500).json({ error: "Database query failed" });
+    return res.status(200).json(result);
+  });
+});
 
 // Get one manager by ID
 app.get('/select/:ManagerId', (req, res) => {
@@ -52,6 +60,15 @@ app.post('/insert', (req, res) => {
     return res.status(200).json({ message: "Insert successful", result });
   });
 });
+//insert into import table
+app.post('/insertimp', (req, res) => {
+  const { Funitureid, importdate, quantity } = req.body;
+  const sql = "INSERT INTO imports (Funitureid, importdate, quantity) VALUES (?, ?, ?)";
+  db.query(sql, [Funitureid, importdate, quantity], (err, result) => {
+    if (err) return res.status(400).json({ error: "Insert failed" });
+    return res.status(200).json({ message: "Insert successful", result });
+  });
+})
 
 // Update a manager
 app.put('/update/:ManagerId', (req, res) => {
