@@ -21,7 +21,7 @@ const Select = () => {
     axios.delete(`http://localhost:3000/delete/${ManagerId}`)
       .then((res) => {
         alert("User deleted successfully");
-        navigate('/select'); // 
+        navigate('/select'); // Redirect to the updated list
         // Optionally, remove the deleted manager from the state to re-render
         // setManager(manager.filter((data) => data.ManagerId !== ManagerId));
       })
@@ -31,9 +31,11 @@ const Select = () => {
   };
 
   return (
-    <div>
-      <table border={1}>
-        <thead>
+    <div className="container my-4">
+      <Link to="/insertimp">Add Manager</Link>
+      <h3 className="mb-4">Manager List</h3>
+      <table className="table table-bordered table-hover">
+        <thead className="table-dark">
           <tr>
             <th>Manager ID</th>
             <th>Username</th>
@@ -47,9 +49,22 @@ const Select = () => {
               <td>{data.ManagerId}</td>
               <td>{data.username}</td>
               <td>{data.Password}</td>
-
-              <td><button onClick={() => handleDelete(data.ManagerId)}>Delete</button></td>
-              <td><Link to={`/update/${data.ManagerId}`}>Update</Link></td>
+              <td>
+                <button 
+                  onClick={() => handleDelete(data.ManagerId)} 
+                  className="btn btn-danger btn-sm"
+                >
+                  Delete
+                </button>
+              </td>
+              <td>
+                <Link 
+                  to={`/update/${data.ManagerId}`} 
+                  className="btn btn-warning btn-sm"
+                >
+                  Update
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

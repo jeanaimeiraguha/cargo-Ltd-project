@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const Sf = () => {
   const [funi, setFuni] = useState([]);
@@ -18,11 +18,11 @@ const Sf = () => {
 
   const handleDelete = (Funitureid) => { 
     console.log("Deleting furniture with ID:", Funitureid); // Debugging the ID
- 
-    axios.delete(`http://localhost:3000/df/${Funitureid}`)
+    axios.delete(`http://localhost:3000/furniture/${Funitureid}`)
       .then((res) => {
         alert("Furniture deleted successfully");
-        setFuni(funi.filter((item) => item.Funitureid !== Funitureid)); // Use 'Funitureid' to filter
+        // Update the state after deletion
+        setFuni(funi.filter((item) => item.Funitureid !== Funitureid)); // Filter out the deleted item
       })
       .catch((err) => {
         console.log("Failed to delete furniture");
@@ -30,30 +30,42 @@ const Sf = () => {
   };
 
   return (
-    <div>
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>Furniture Id</th>
-            <th>Furniture Name</th>
-            <th>Furniture Owner Name</th>
-            <th colSpan={2}>Operations</th>
-          </tr>
-        </thead>
-        <tbody>
-          {funi.map((data) => (
-            <tr key={data.Funitureid}> 
-              <td>{data.Funitureid}</td> 
-              <td>{data.furniturename}</td>
-              <td>{data.furnitureowner}</td>
-              <td>
-                <Link to={`/updatefun/${data.Funitureid}`}>Update</Link>
-                <button onClick={() => handleDelete(data.Funitureid)}>Delete</button> {/* Pass 'Funitureid' */}
-              </td>
+    <div className="container my-4">
+      <Link to="/insf" className="btn btn-primary mb-3">Add New Furniture</Link>
+      {funi.length === 0 ? (
+        <p>No furniture found.</p>
+      ) : (
+        <table className="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Furniture Id</th>
+              <th>Furniture Name</th>
+              <th>Furniture Owner Name</th>
+              <th colSpan={2}>Operations</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {funi.map((data) => (
+              <tr key={data.Funitureid}> 
+                <td>{data.Funitureid}</td> 
+                <td>{data.furniturename}</td>
+                <td>{data.furnitureowner}</td>
+                <td>
+                  <Link to={`/updatefun/${data.Funitureid}`} className="btn btn-warning btn-sm me-2">
+                    Update
+                  </Link>
+                  <button 
+                    onClick={() => handleDelete(data.Funitureid)} 
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

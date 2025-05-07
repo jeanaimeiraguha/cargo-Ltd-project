@@ -25,8 +25,8 @@ axios.post('http://localhost:3000/insert', {username, Password})
   return (
     <div>
       <form onSubmit={handleSubmit}>
-          <input type="text" value={username} onChange={e=>setUsername(e.target.value)} /> <br />
-          <input type="password" value={Password} onChange={e=>setPassword(e.target.value)} /> <br />
+         <input type="text" placeholder=' UserName' value={username} onChange={e=>setUsername(e.target.value)} /> <br />
+         <input type="password" placeholder='Password ' value={Password} onChange={e=>setPassword(e.target.value)} /> <br />
           <button type='submit'>Add New Manager</button>
       </form>
     </div>

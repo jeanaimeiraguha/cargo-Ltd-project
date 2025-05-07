@@ -60,6 +60,46 @@ app.post('/insert', (req, res) => {
     return res.status(200).json({ message: "Insert successful", result });
   });
 });
+
+// ----------INSERT EXPORTED GOODS------------
+
+
+app.post('/insertexp', (req, res) => {
+  const { Funitureid, exportdate,quantity } = req.body;
+  const sql = "INSERT INTO exports (Funitureid,exportdate,quantity) VALUES (?, ?,?)";
+  db.query(sql, [Funitureid,exportdate,quantity], (err, result) => {
+    if (err) return res.status(400).json({ error: "Insert failed" });
+    return res.status(200).json({ message: "Insert successful", result });
+  });
+});
+
+
+// Fetch joined data (furniture with exports and imports)
+app.get('/furniture-exports-imports', (req, res) => {
+  const sql = `
+    SELECT 
+      funiture.Funitureid,
+      funiture.furniturename,
+      funiture.furnitureowner,
+      exports.exportdate,
+      exports.quantity AS export_quantity,
+      imports.importdate,
+      imports.quantity AS import_quantity
+    FROM 
+      funiture
+    LEFT JOIN exports 
+      ON funiture.Funitureid = exports.Funitureid
+    LEFT JOIN imports 
+      ON funiture.Funitureid = imports.Funitureid;
+  `;
+  db.query(sql, (err, result) => {
+    if (err) return res.status(500).json({ error: "Failed to fetch joined data" });
+    res.status(200).json(result);
+  });
+});
+
+
+
 //insert into import table
 app.post('/insertimp', (req, res) => {
   const { Funitureid, importdate, quantity } = req.body;
